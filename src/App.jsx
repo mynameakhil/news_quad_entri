@@ -10,7 +10,7 @@ function App(props) {
   const [weather, setWeather] = useState([]);
   const [news, setNews] = useState([]);
 
-  // Make a request for a user with a given ID
+  //use react geo location package
   useEffect(() => {
     if (!props.isGeolocationAvailable) {
       const arr = [];
@@ -20,7 +20,6 @@ function App(props) {
       });
       setWeather(arr);
     } else if (!props.isGeolocationEnabled) {
-      console.log();
       const arr = [];
       arr.push({
         name: "Temp.",
@@ -31,7 +30,7 @@ function App(props) {
     } else if (props.coords) {
       const latitude = props.coords.latitude;
       const longitude = props.coords.longitude;
-
+      //request for weather condition based on geolocation
       axios({
         method: "get",
         url: `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=b353d73227bebb0a8d9dc9769ab746ca`
@@ -45,7 +44,7 @@ function App(props) {
       });
     }
   });
-
+//search for news. searching quary and launguage put with url
   const onSearch = () => {
     axios({
       method: "get",
@@ -54,7 +53,7 @@ function App(props) {
       setNews(response.data.articles);
       });
   };
-
+//take all data and return componet with css and bootstap styling
   return (
     <div>
       <div className="container-fluid body2">
